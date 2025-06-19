@@ -19,6 +19,7 @@ htmlcov/
 .cache
 .mypy_cache/
 .pytest_cache/
+.pytest_tmp_*/
 build/
 dist/
 .eggs/
