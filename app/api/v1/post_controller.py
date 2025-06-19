@@ -1,14 +1,16 @@
+from flask import Blueprint, jsonify, request
 
-from flask import Blueprint, request, jsonify
-from usecases import post_crud
+from app.core import post_crud
 
 bp = Blueprint("posts", __name__, url_prefix="/posts")
+
 
 @bp.route("/", methods=["POST"])
 def create():
     data = request.json
     post_id = post_crud.create_post(data)
     return jsonify({"message": "Created", "id": post_id}), 201
+
 
 @bp.route("/<post_id>", methods=["GET"])
 def read(post_id):
@@ -18,11 +20,13 @@ def read(post_id):
     result["_id"] = str(result["_id"])
     return jsonify(result)
 
+
 @bp.route("/<post_id>", methods=["PUT"])
 def update(post_id):
     data = request.json
     post_crud.update_post(post_id, data)
     return jsonify({"message": "Updated"})
+
 
 @bp.route("/<post_id>", methods=["DELETE"])
 def delete(post_id):
